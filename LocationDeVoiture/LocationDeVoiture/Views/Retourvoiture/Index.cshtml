@@ -1,0 +1,78 @@
+﻿<div class="row">
+
+    <div class="row">
+
+        <div class="col-sm-4">
+
+
+            @using (Html.BeginForm("Sauvegarder", "Retourvoiture", FormMethod.Post, new { id = "popupForm" }))
+            {
+                <div>
+                    <h1>Retourner une voiture</h1>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Num voiture</label>
+                    <input type="text" id="matricule" name="matricule" class="form-control" placeholder="Matricule" required>
+                </div>
+                <div class="form-group">
+                    <label class="form_label">ID client</label>
+                    <input type="text" id="idclient" name="idclient" class="form-control" placeholder="ID client" required>
+                </div>
+                <div class="form-group">
+                    <label class="form_label">Date de retour</label>
+                    <input type="date" id="date_retour" name="date_retour" class="form-control"required>
+                </div>
+                <div class="form-group">
+                    <label class="form_label">Nombre de jours</label>
+                    <input type="text" id="nbrjour" name="nbrjour" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form_label">Amende</label>
+                    <input type="text" id="amende" name="amende" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Sauvegarder" class="btn btn-success" />
+                </div>
+            }
+        </div>
+
+    </div>
+
+    @section scripts
+{
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+
+        <script>
+            getMatricule();
+            function getMatricule() {
+                $("#matricule").keyup(function (e) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Retourvoiture/Getmatricule?matricule=' + $("#matricule").val(),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            console.log(data)
+
+                            $('#idclient').val(data[0].IDclient);
+                            $('#date_retour').val(new Date(parseInt(data[0].DateFin.substr(6))).toLocaleDateString());
+                            $('#nbrjour').val(data[0].NombreJours);
+
+                            var nbrjour = data[0].NombreJours;
+
+                            if (nbrjour > 0) {
+                                var amende = nbrjour * 100;
+                                $('#amende').val(amende.toString());
+                            }
+                            else {
+                                $('#amende').val("0");
+                            }
+
+                        }
+                    });
+                });
+            }
+        </script>
+    }
+</div>

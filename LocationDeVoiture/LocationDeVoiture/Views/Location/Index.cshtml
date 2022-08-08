@@ -1,0 +1,168 @@
+﻿@model IEnumerable<LocationDeVoiture.Models.LocationViewModel>
+
+<div class="row">
+
+    <div class="col-sm-4">
+
+
+        @using (Html.BeginForm("Sauvegarder", "Location", FormMethod.Post, new { id = "popupForm" }))
+        {
+            <div>
+                <h1>Louer une voiture</h1>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Num voiture</label>
+                <select class="form-control" id="matricule" name="matricule" placeholder="idvoiture" required>
+                    <option>Veuillez faire votre choix !</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form_label">ID client</label>
+                <input type="text" id="idclient" name="idclient" class="form-control" placeholder="ID client" required>
+            </div>
+            <div class="form-group">
+                <label class="form_label">Nom client</label>
+                <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom client" required>
+            </div>
+            <div class="form-group">
+                <label class="form_label">Prix de location</label>
+                <input type="text" id="prix" name="prix" class="form-control" placeholder="Prix de location" required>
+            </div>
+            <div class="form-group">
+                <label class="form_label">Date de début</label>
+                <input type="date" id="date_debut" name="date_debut" class="form-control" placeholder="Prix de location" required>
+            </div>
+            <div class="form-group">
+                <label class="form_label">Date de fin</label>
+                <input type="date" id="date_fin" name="date_fin" class="form-control" placeholder="Prix de location" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sauvegarder" class="btn btn-success" />
+            </div>
+        }
+    </div>
+
+    <div class="col-sm-8">
+        <table class="table">
+            <tr>
+                <th>Matricule</th>
+                <th>ID Client</th>
+                <th>Prix</th>
+                <th>Date Début</th>
+                <th>Date fin</th>
+                <th>Disponible</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.matricule</td>
+                    <td>@item.idclient</td>
+                    <td>@item.prix</td>
+                    <td>@item.date_debut</td>
+                    <td>@item.date_fin</td>
+                    <td>@item.disponible</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+
+    <script>
+        getCar();
+        load();
+        function load() {
+            $("#idclient").attr("disabled", "disabled");
+            $("#nom").attr("disabled", "disabled");
+            $("#prix").attr("disabled", "disabled");
+            $("#date_debut").attr("disabled", "disabled");
+            $("#date_fin").attr("disabled", "disabled");
+        }
+
+
+        function getCar() {
+            $.ajax({
+                type: 'GET',
+                url: '/location/Getcar',
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        $("#matricule").append($("<option/>", {
+                            text: data[i].matricule
+                        }));
+                    }
+                }
+            });
+        }
+
+        $("#matricule").change(function () {
+            disponible();
+        });
+
+        function disponible() {
+            $.ajax({
+                type: 'POST',
+                url: '/location/Getdisponible?matricule=' + $("#matricule").val(),
+                dataType: 'JSON',
+                success: function (data) {
+                    console.log(data)
+
+                    var disponible = data;
+
+                    if (disponible == "oui") {
+                        $("#idclient").removeAttr('disabled');
+                        $("#nom").removeAttr('disabled');
+                        $("#prix").removeAttr('disabled');
+                        $("#date_debut").removeAttr('disabled');
+                        $("#date_fin").removeAttr('disabled');
+                    }
+                    else {
+                        $("#idclient").attr("disabled", "disabled");
+                        $("#nom").attr("disabled", "disabled");
+                        $("#prix").attr("disabled", "disabled");
+                        $("#date_debut").attr("disabled", "disabled");
+                        $("#date_fin").attr("disabled", "disabled");
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+        getClient();
+
+        function getClient() {
+            $("#idclient").keyup(function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/location/Getid?id=' + $("#idclient").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data)
+
+                        $("#nom").val(data)
+                    }
+                });
+            });
+        }
+
+    </script>
+
+
+
+}

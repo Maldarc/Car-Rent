@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationVoitureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="idclient" />
+    </Key>
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="Int32" />
+    <Property Name="idclient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="voiture">
+    <Key>
+      <PropertyRef Name="idvoiture" />
+    </Key>
+    <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modele" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="disponible" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idvoiture" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityContainer Name="LocationVoitureEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="clients" EntityType="Self.client" />
+    <EntitySet Name="voitures" EntityType="Self.voiture" />
+    <EntitySet Name="locations" EntityType="LocationVoitureModel.location" />
+    <EntitySet Name="retourvoitures" EntityType="LocationVoitureModel.retourvoiture" />
+  </EntityContainer>
+  <EntityType Name="location">
+    <Key>
+      <PropertyRef Name="idlocation" />
+    </Key>
+    <Property Name="idclient" Type="Int32" />
+    <Property Name="prix" Type="Int32" />
+    <Property Name="date_debut" Type="DateTime" Precision="0" />
+    <Property Name="date_fin" Type="DateTime" Precision="0" />
+    <Property Name="idlocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="retourvoiture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idclient" Type="Int32" />
+    <Property Name="date_retour" Type="DateTime" Precision="0" />
+    <Property Name="nbrjour" Type="Int32" />
+    <Property Name="amende" Type="Int32" />
+  </EntityType>
+</Schema>

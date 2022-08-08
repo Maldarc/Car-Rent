@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LocationVoitureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="idclient" />
+    </Key>
+    <Property Name="idclient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" MaxLength="50" />
+    <Property Name="telephone" Type="int" />
+  </EntityType>
+  <EntityType Name="location">
+    <Key>
+      <PropertyRef Name="idlocation" />
+    </Key>
+    <Property Name="idlocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="matricule" Type="varchar" MaxLength="50" />
+    <Property Name="idclient" Type="int" />
+    <Property Name="prix" Type="int" />
+    <Property Name="date_debut" Type="date" />
+    <Property Name="date_fin" Type="date" />
+  </EntityType>
+  <EntityType Name="retourvoiture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="matricule" Type="varchar" MaxLength="50" />
+    <Property Name="idclient" Type="int" />
+    <Property Name="date_retour" Type="date" />
+    <Property Name="nbrjour" Type="int" />
+    <Property Name="amende" Type="int" />
+  </EntityType>
+  <EntityType Name="voiture">
+    <Key>
+      <PropertyRef Name="idvoiture" />
+    </Key>
+    <Property Name="idvoiture" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="matricule" Type="varchar" MaxLength="50" />
+    <Property Name="marque" Type="varchar" MaxLength="50" />
+    <Property Name="modele" Type="varchar" MaxLength="50" />
+    <Property Name="disponible" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="LocationVoitureModelStoreContainer">
+    <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="location" EntityType="Self.location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="retourvoiture" EntityType="Self.retourvoiture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="voiture" EntityType="Self.voiture" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LocationVoitureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idclient" />
+          </Key>
+          <Property Name="idclient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="prenom" Type="varchar" MaxLength="50" />
+          <Property Name="telephone" Type="int" />
+        </EntityType>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="idlocation" />
+          </Key>
+          <Property Name="idlocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="matricule" Type="varchar" MaxLength="50" />
+          <Property Name="idclient" Type="int" />
+          <Property Name="prix" Type="int" />
+          <Property Name="date_debut" Type="date" />
+          <Property Name="date_fin" Type="date" />
+        </EntityType>
+        <EntityType Name="retourvoiture">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="matricule" Type="varchar" MaxLength="50" />
+          <Property Name="idclient" Type="int" />
+          <Property Name="date_retour" Type="date" />
+          <Property Name="nbrjour" Type="int" />
+          <Property Name="amende" Type="int" />
+        </EntityType>
+        <EntityType Name="voiture">
+          <Key>
+            <PropertyRef Name="idvoiture" />
+          </Key>
+          <Property Name="idvoiture" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="matricule" Type="varchar" MaxLength="50" />
+          <Property Name="marque" Type="varchar" MaxLength="50" />
+          <Property Name="modele" Type="varchar" MaxLength="50" />
+          <Property Name="disponible" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="LocationVoitureModelStoreContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="location" EntityType="Self.location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="retourvoiture" EntityType="Self.retourvoiture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="voiture" EntityType="Self.voiture" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocationVoitureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="idclient" />
+          </Key>
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="Int32" />
+          <Property Name="idclient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="voiture">
+          <Key>
+            <PropertyRef Name="idvoiture" />
+          </Key>
+          <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="marque" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modele" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="disponible" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idvoiture" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="LocationVoitureEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="voitures" EntityType="Self.voiture" />
+          <EntitySet Name="locations" EntityType="LocationVoitureModel.location" />
+          <EntitySet Name="retourvoitures" EntityType="LocationVoitureModel.retourvoiture" />
+        </EntityContainer>
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="idlocation" />
+          </Key>
+          <Property Name="idclient" Type="Int32" />
+          <Property Name="prix" Type="Int32" />
+          <Property Name="date_debut" Type="DateTime" Precision="0" />
+          <Property Name="date_fin" Type="DateTime" Precision="0" />
+          <Property Name="idlocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="retourvoiture">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="matricule" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idclient" Type="Int32" />
+          <Property Name="date_retour" Type="DateTime" Precision="0" />
+          <Property Name="nbrjour" Type="Int32" />
+          <Property Name="amende" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocationVoitureModelStoreContainer" CdmEntityContainer="LocationVoitureEntities">
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="LocationVoitureModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="voitures">
+            <EntityTypeMapping TypeName="LocationVoitureModel.voiture">
+              <MappingFragment StoreEntitySet="voiture">
+                <ScalarProperty Name="idvoiture" ColumnName="idvoiture" />
+                <ScalarProperty Name="matricule" ColumnName="matricule" />
+                <ScalarProperty Name="marque" ColumnName="marque" />
+                <ScalarProperty Name="modele" ColumnName="modele" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="locations">
+            <EntityTypeMapping TypeName="LocationVoitureModel.location">
+              <MappingFragment StoreEntitySet="location">
+                <ScalarProperty Name="matricule" ColumnName="matricule" />
+                <ScalarProperty Name="idlocation" ColumnName="idlocation" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="retourvoitures">
+            <EntityTypeMapping TypeName="LocationVoitureModel.retourvoiture">
+              <MappingFragment StoreEntitySet="retourvoiture">
+                <ScalarProperty Name="amende" ColumnName="amende" />
+                <ScalarProperty Name="nbrjour" ColumnName="nbrjour" />
+                <ScalarProperty Name="date_retour" ColumnName="date_retour" />
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+                <ScalarProperty Name="matricule" ColumnName="matricule" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

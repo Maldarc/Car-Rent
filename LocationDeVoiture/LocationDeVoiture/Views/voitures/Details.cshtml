@@ -1,0 +1,50 @@
+﻿@model LocationDeVoiture.Models.voiture
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>voiture</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.matricule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.matricule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.marque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marque)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modele)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modele)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.disponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.disponible)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idvoiture }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocationVoitureModelStoreContainer" CdmEntityContainer="LocationVoitureEntities">
+    <EntitySetMapping Name="clients">
+      <EntityTypeMapping TypeName="LocationVoitureModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="idclient" ColumnName="idclient" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="voitures">
+      <EntityTypeMapping TypeName="LocationVoitureModel.voiture">
+        <MappingFragment StoreEntitySet="voiture">
+          <ScalarProperty Name="idvoiture" ColumnName="idvoiture" />
+          <ScalarProperty Name="matricule" ColumnName="matricule" />
+          <ScalarProperty Name="marque" ColumnName="marque" />
+          <ScalarProperty Name="modele" ColumnName="modele" />
+          <ScalarProperty Name="disponible" ColumnName="disponible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="locations">
+      <EntityTypeMapping TypeName="LocationVoitureModel.location">
+        <MappingFragment StoreEntitySet="location">
+          <ScalarProperty Name="matricule" ColumnName="matricule" />
+          <ScalarProperty Name="idlocation" ColumnName="idlocation" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="idclient" ColumnName="idclient" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="retourvoitures">
+      <EntityTypeMapping TypeName="LocationVoitureModel.retourvoiture">
+        <MappingFragment StoreEntitySet="retourvoiture">
+          <ScalarProperty Name="amende" ColumnName="amende" />
+          <ScalarProperty Name="nbrjour" ColumnName="nbrjour" />
+          <ScalarProperty Name="date_retour" ColumnName="date_retour" />
+          <ScalarProperty Name="idclient" ColumnName="idclient" />
+          <ScalarProperty Name="matricule" ColumnName="matricule" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
